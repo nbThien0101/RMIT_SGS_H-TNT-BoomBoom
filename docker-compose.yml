@@ -1,0 +1,16 @@
+# Postgres for Quỹ Nhóm. TideCloak itself is started by `npm run init` (template script).
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: quynhom-db
+    environment:
+      POSTGRES_USER: quynhom
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-quynhom-dev}
+      POSTGRES_DB: quynhom
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - quynhom-pg:/var/lib/postgresql/data
+volumes:
+  quynhom-pg:
